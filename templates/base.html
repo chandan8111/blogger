@@ -43,16 +43,16 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link me-2" aria-current="page" href="/">Home</a>
+              <a class="nav-link me-2 {% block homeactive %}{% endblock homeactive %}" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link me-2" href="/blog">Blog</a>
+              <a class="nav-link me-2 {% block blogactive %}{% endblock blogactive %}" href="/blog">Blog</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link me-2" href="/contact">Contact</a>
+              <a class="nav-link me-2 {% block contactactive %}{% endblock contactactive %}" href="/contact">Contact</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link me-2" href="/about">About</a>
+              <a class="nav-link me-2 {% block aboutactive %}{% endblock aboutactive %}" href="/about">About</a>
             </li>
           </ul>
           <button type="button" class="btn btn-outline-primary me-2">
