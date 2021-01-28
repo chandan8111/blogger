@@ -1,7 +1,11 @@
 {% extends "base.html" %}
-{% block title %}Tech Blog | Blog Post{% endblock %}
+{% block title %}Tech Blog | {{post.title}}{% endblock %}
 {% block body %}
-<div>
-    <h1>tis is index page</h1>  
+<div class="container my-3">
+    <article class="blog-post">
+        <h2 class="blog-post-title">{{post.title}}</h2>
+        <p class="blog-post-meta">{{post.time}} by <a href="/about">{{post.author}}</a></p>
+        <p>{{post.content}}</p>
+    </article>
 </div>
 {% endblock %}
