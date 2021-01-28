@@ -71,12 +71,14 @@
             Notification
             <span class="badge bg-primary">4</span>
           </button>
-          <form class="d-flex me-2">
+          <form method="GET" action="/search" class="d-flex me-2">
             <input
               class="form-control me-2"
               type="search"
               placeholder="Search"
               aria-label="Search"
+              name="query"
+              id="query"
             />
             <button class="btn btn-outline-primary" type="submit">
               <svg
