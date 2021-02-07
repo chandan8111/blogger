@@ -1,7 +1,8 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from home.models import Contact
 from django.contrib import messages
 from blog.models import Post
+from django.contrib.auth.models import User
 
 # Create your views here.
 def home(request):
@@ -38,3 +39,25 @@ def search(request):
         
     context = {"allpost": allpost, 'query':query}
     return render(request, 'home/search.html', context)
+
+def handleSignup(request):
+    if request.method == 'POST':
+        # Get the post parameters
+        firstname = request.POST['firstname']
+        lastname = request.POST['lastname']
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        Password = request.POST['Password']
+        # Check in input error
+        # Create User
+        myuser = User.objects.create_user(username, email, password)
+        myuser.first_name = firstname
+        myuser.last_name = lastname
+        myuser.save()
+        messages.success(request, "Your blogger account has been successfully created")
+        return redirect("/")
+
+    else:
+        return HttpResponse('404 - Not Found')
+    

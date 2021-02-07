@@ -98,60 +98,66 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="row mb-3">
-            <div class="col">
-              <label for="firstname" class="form-label">First Name</label>
-              <input type="text" class="form-control" name="firstname" placeholder="First name" aria-label="First name" />
+          <form action="/signup/" method="POST">
+            {% csrf_token %}
+            <div class="row mb-3">
+              <div class="col">
+                <label for="firstname" class="form-label">First Name</label>
+                <input type="text" class="form-control" name="firstname" placeholder="First name"
+                  aria-label="First name" />
+              </div>
+              <div class="col">
+                <label for="lastname" class="form-label">Last Name</label>
+                <input type="text" class="form-control" name="lastname" placeholder="Last name"
+                  aria-label="Last name" />
+              </div>
             </div>
-            <div class="col">
-              <label for="lastname" class="form-label">Last Name</label>
-              <input type="text" class="form-control" name="lastname" placeholder="Last name" aria-label="Last name" />
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" name="username" id="username" placeholder="Username" />
             </div>
-          </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" name="password" placeholder="Password" id="password" />
+            </div>
+            <div class="mb-3">
+              <label for="Password" class="form-label">Confirm Password</label>
+              <input type="password" class="form-control" name="Password" placeholder="Password" id="Password" />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModaltittle">Login Your Account</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
           <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" name="username" id="username" placeholder="Username" />
-          </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" />
+            <label for="email" class="form-label">Email Id or Username</label>
+            <input type="email text" class="form-control" name="loginid" id="loginid" placeholder="Login Id" />
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" name="password" placeholder="Password" id="password" />
-          </div>
-          <div class="mb-3">
-            <label for="Password" class="form-label">Confirm Password</label>
-            <input type="password" class="form-control" name="Password" placeholder="Password" id="Password" />
+            <input type="password" class="form-control" name="loginpassword" placeholder="Password"
+              id="loginpassword" />
           </div>
           <button type="button" class="btn btn-primary">Submit</button>
         </div>
       </div>
     </div>
   </div>
-
-    <!-- Login Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="loginModaltittle">Login Your Account</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <label for="email" class="form-label">Email address Or Username</label>
-              <input type="email text" class="form-control" name="loginid" id="loginid" placeholder="Login Id" />
-            </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" name="loginpassword" placeholder="Password" id="loginpassword" />
-            </div>
-            <button type="button" class="btn btn-primary">Submit</button>
-          </div>
-        </div>
-      </div>
-    </div>
 
   {% block body %}{% endblock %} {% block js %}{% endblock %}
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
