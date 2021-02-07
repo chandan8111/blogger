@@ -88,9 +88,7 @@ def handleLogin(request):
     return HttpResponse('404 - Not Found')
 
 def handleLogout(request):
-    if request.method == 'POST':
+    # if request.method == 'POST':
         logout(request)
         messages.warning(request, "Successfully logged out")
         return redirect("/")
-    
-    return HttpResponse('404 - Not Found')
