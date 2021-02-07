@@ -46,10 +46,20 @@ def handleSignup(request):
         firstname = request.POST['firstname']
         lastname = request.POST['lastname']
         username = request.POST['username']
-        email = request.POST['email']
+        Email = request.POST['email']
+        email = Email.lower()
         password = request.POST['password']
         Password = request.POST['Password']
         # Check in input error
+        if len(username) < 3:
+            messages.error(request, "Username must be above 4 character.")
+            return redirect("/")
+        if not username.isalnum():
+            messages.error(request, "Username should only contain letter or number")
+            return redirect("/")
+        if password != Password:
+            messages.error(request, "Passwords do not match.")
+            return redirect("/")
         # Create User
         myuser = User.objects.create_user(username, email, password)
         myuser.first_name = firstname
