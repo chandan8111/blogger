@@ -3,6 +3,7 @@ from home.models import Contact
 from django.contrib import messages
 from blog.models import Post
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 def home(request):
@@ -70,4 +71,26 @@ def handleSignup(request):
 
     else:
         return HttpResponse('404 - Not Found')
+
+def handleLogin(request):
+    if request.method == 'POST':
+        loginId = request.POST['loginid']
+        loginPassword = request.POST['loginpassword']
+        user = authenticate(username=loginId, password=loginPassword)
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Sucessfully loged in")
+            return redirect("/")  
+        else:
+            messages.error(request, "Invalid Credentials, Please try again")
+            return redirect("/")   
     
+    return HttpResponse('404 - Not Found')
+
+def handleLogout(request):
+    if request.method == 'POST':
+        logout(request)
+        messages.warning(request, "Successfully logged out")
+        return redirect("/")
+    
+    return HttpResponse('404 - Not Found')
