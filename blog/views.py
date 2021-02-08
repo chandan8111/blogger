@@ -1,5 +1,6 @@
-from django.shortcuts import render, HttpResponse
-from blog.models import Post
+from django.shortcuts import render, HttpResponse, redirect
+from blog.models import Post, BlogComment
+from django.contrib import messages
 
 # Create your views here.
 def blogHome(request):
@@ -7,8 +8,19 @@ def blogHome(request):
     context = {'allpost': allpost}
     return render(request, 'blog/blog.html', context)
     
-
 def blogPost(request, slug):
     post = Post.objects.filter(slug=slug).first()
-    context = {"post": post}
+    comments = BlogComment.objects.filter(post=post)
+    context = {"post": post, "comments":comments}
     return render(request, 'blog/blogpost.html', context)
+
+def postComment(request):
+    if request.method == 'POST':
+        comment = request.POST.get("comment")
+        user = request.user
+        postId = request.POST.get("postId")
+        post = Post.objects.get(Sno=postId)
+        comments = BlogComment(comment=comment, user=user, post=post)
+        comments.save()
+        messages.success(request, "Your comment has been posted.")
+    return redirect(f"/blog/{post.slug}")
