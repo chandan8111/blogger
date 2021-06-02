@@ -12,34 +12,65 @@
 <div class="container my-3">
     <h2>Comment ({{comments.count}})</h2>
     <div class="my-2">
-    {% if user.is_authenticated %}
-    <form action="/blog/postComment" method="post">
-        {% csrf_token %}
-        <div class="row">
-            <label for="InputComment" class="form-label">Post Comment</label>
-            <div class="col">  
-                <input type="text" class="form-control" name="comment" id="InputComment" placeholder="Enter comment here">
+        {% if user.is_authenticated %}
+        <form action="/blog/postComment" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <label for="InputComment" class="form-label">Post Comment</label>
+                <div class="col">
+                    <input type="text" class="form-control" name="comment" id="InputComment"
+                        placeholder="Enter comment here">
+                </div>
+                <div class="col">
+                    <input type="hidden" name="postSno" value="{{post.Sno}}">
+                    <input type="hidden" name="parentSno" value="">
+                    <button type="submit" value="Submit" class="btn btn-outline-primary">Submit</button>
+                </div>
             </div>
-            <div class="col">
-                <input type="hidden" name="postId" value="{{post.Sno}}">
-                <button type="submit" value="Submit" class="btn btn-outline-primary">Submit</button>
-            </div>
-        </div>    
-    </form
-    {% else %}
-    <h2>Login to Post a comment</h2>
-    {% endif %}
+        </form> 
+        {% else %} 
+            <h2>Login to Post a comment</h2>
+        {% endif %}
     </div>
     {% for comment in comments %}
     <div class="row my-3">
-        <div class="col-md-1 border border-primary rounded">
-            <svg xmlns="http://www.w3.org/2000/svg" class="p-2 w-100 h-100" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+        <div class="col-md-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="p-2 w-100  border border-primary rounded mx-auto d-block" fill="currentColor"
+                class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                <path fill-rule="evenodd"
+                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
             </svg>
         </div>
-        <div class="col-md-8"><b>{{comment.user.username}}</b> <span style="font-size:12px; padding:5px; ">{{comment.time | naturaltime}}</span>
-            <div> {{comment.comment}}</div>
+        <div class="col-md-8"><b>{{comment.user.username}}</b> <span
+                style="font-size:12px; padding:5px; ">{{comment.time | naturaltime}}</span>
+            <div style="overflow-wrap: break-word;"> {{comment.comment}}</div>
+            <div class="reply mx-0">
+                <p class="my-2">
+                    <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="collapse" data-target="#replyBox{{comment.sno}}"aria-expanded="false" aria-controls="collapseExample">
+                        Reply
+                    </button>
+                </p>
+                <div class="collapse" id="replyBox{{comment.sno}}">
+                    <div class="card card-body my-2">
+                        <form action="/blog/postComment" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                            <label for="InputReply" class="form-label">Post Reply</label>
+                            <div class="col">
+                                <input type="text" class="form-control" name="comment"
+                                placeholder="Enter comment here">
+                                <input type="hidden" name="parentSno" value="{{comment.sno}}">
+                            </div>
+                            <div class="col">
+                                <input type="hidden" name="postSno" value="{{post.Sno}}">
+                                <button type="submit" value="Submit" class="btn btn-outline-primary">Submit</button>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     {% endfor %}

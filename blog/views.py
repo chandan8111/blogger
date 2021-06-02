@@ -18,9 +18,16 @@ def postComment(request):
     if request.method == 'POST':
         comment = request.POST.get("comment")
         user = request.user
-        postId = request.POST.get("postId")
-        post = Post.objects.get(Sno=postId)
-        comments = BlogComment(comment=comment, user=user, post=post)
-        comments.save()
-        messages.success(request, "Your comment has been posted.")
+        postSno = request.POST.get("postSno")
+        post = Post.objects.get(Sno=postSno)
+        parentSno = request.POST.get("parentSno")
+        if parentSno == "":
+            comments = BlogComment(comment=comment, user=user, post=post)
+            comments.save()
+            messages.success(request, "Your comment has been posted.")
+        else:
+            parent=BlogComment.objects.get(sno=parentSno)
+            comments = BlogComment(comment=comment, user=user, post=post, parent=parent)
+            comments.save()
+            messages.success(request, "Your reply has been posted.")
     return redirect(f"/blog/{post.slug}")
